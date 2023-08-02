@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+#joinContainer{
+	border: 1px solid black;
+	
+	text-align: center;
+	padding: 20px;
+}
+
+#loginContainer{
+	border: 1px solid black;
+	width: 100%;
+	text-align: center;
+	padding: 20px;	
+}
+table tr td{
+	text-align: right;
+}
+table tr th{
+	text-align: center;
+}
