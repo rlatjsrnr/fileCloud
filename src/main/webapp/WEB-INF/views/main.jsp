@@ -9,11 +9,14 @@
 <title>main</title>
 </head>
 <body>
-	<form action="upload" method="post">
-		<input type="file" id="upload" name="upload" style="display:none" multiple />
-		<a href="" onclick="document.getElementById('upload').click(); return false">Upload Image</a>
-		<button>보내기</button>
-	</form>
+	<form method="post" action="upload" enctype="multipart/form-data">
+            <ul>
+                <li>이미지 파일
+                    <input type="file" multiple="multiple" name="image">
+                    <input type="submit" id="submit" value="전송" />
+                </li>
+            </ul>
+        </form>
 	<br/>
 	<hr/>
 	<br/>

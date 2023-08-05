@@ -13,8 +13,11 @@ SELECT * FROM member;
 
 delete FROM member;
 
-CREATE TABLE img(
-	num int primary key not null,
-	path VARCHAR(100) not null
+create table image(
+	 imageId int primary KEY AUTO_INCREMENT,
+	 originImageName VARCHAR(256) NOT null,
+	 newImageName VARCHAR(256) NOT null,
+	 imagePath VARCHAR(256) NOT null
 );
-select * from img;
+DROP table image;
+select * from image;
