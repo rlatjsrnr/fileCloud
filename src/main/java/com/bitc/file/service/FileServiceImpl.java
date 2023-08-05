@@ -1,14 +1,10 @@
 package com.bitc.file.service;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,42 +25,60 @@ public class FileServiceImpl implements FileService {
 	
 	@Override
 	public void upload(MultipartFile image, HttpServletRequest request) {
+		
 		MemberVO loginMember = (MemberVO) request.getSession().getAttribute("loginMember");
-		//String dirPath = "C:\\Users\\ksk42\\Desktop";
 		String dirPath = request.getServletContext().getRealPath(request.getContextPath())+"\\"+loginMember.getId();
+		System.out.println(dirPath);
 		String extension = null;
 		 if (!image.isEmpty()) {
-	            String contentType = image.getContentType();
-	            if (contentType.contains("image/jpeg")) {
-	                extension = ".jpg";
-	            } else if (contentType.contains("image/png")) {
-	                extension = ".png";
-	            } else if (contentType.contains("image/gif")) {
-	                extension = ".gif";
-	       		}else {
-	       			return;
-	       		}
+			 // getContentType의 반환값이 MIME type - ex) image/jpg
+			 extension = image.getContentType().split("/")[1];
 	       	}
-		String newImageName = UUID.randomUUID().toString() + extension; 
+		String imageId = UUID.randomUUID().toString() +"."+extension; 
+		System.out.println(imageId);
 		FileVO fileVO = new FileVO(
 					null,
 					image.getOriginalFilename(),
-					newImageName,
+					imageId,
 					dirPath
 				); 
-		System.out.println(fileVO);
 		fd.insertImg(fileVO);
 		
-		File file = new File(dirPath, image.getOriginalFilename());
+		File file = new File(dirPath, imageId);
+				
+		if (file.canRead()) {
+            System.out.println("File is readable.");
+        } else {
+            System.out.println("File is not readable.");
+        }
+
+        // Check if the file is writable
+        if (file.canWrite()) {
+            System.out.println("File is writable.");
+        } else {
+            System.out.println("File is not writable.");
+        }
+
+        // Check if the file is executable
+        if (file.canExecute()) {
+            System.out.println("File is executable.");
+        } else {
+            System.out.println("File is not executable.");
+        }
+		
+		System.out.println(file.getAbsolutePath());
 		if (!file.exists()) {
 			file.mkdirs();
 		}
-		PrintStream ps = null;
 		try {
-			ps = new PrintStream(new FileOutputStream(file,true),true);
-			ps.close();
-		} catch (FileNotFoundException e) {
+			image.transferTo(file);
+		} catch (IllegalStateException e) {
+			System.out.println("ille");
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("ioe");
 			e.printStackTrace();
 		}
+		
 	}
 }

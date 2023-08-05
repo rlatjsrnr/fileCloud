@@ -14,10 +14,11 @@ SELECT * FROM member;
 delete FROM member;
 
 create table image(
-	 imageId int primary KEY AUTO_INCREMENT,
-	 originImageName VARCHAR(256) NOT null,
-	 newImageName VARCHAR(256) NOT null,
+	 imageNum int primary KEY AUTO_INCREMENT,
+	 imageName VARCHAR(256) NOT null,
+	 imageId VARCHAR(256) NOT null,
 	 imagePath VARCHAR(256) NOT null
 );
 DROP table image;
 select * from image;
+commit;

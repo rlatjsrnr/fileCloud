@@ -7,9 +7,9 @@ import com.bitc.file.vo.FileVO;
 
 public interface FileDAO {
 	
-	@Insert("INSERT INTO image VALUES(null, #{originImageName}, #{newImageName}, #{imagePath})")
+	@Insert("INSERT INTO image VALUES(null, #{imageName}, #{imageId}, #{imagePath})")
 	int insertImg(FileVO file);
 	
-	@Select("SELECT path FROM img WHERE num=#{num}")
+	@Select("SELECT imagePath FROM image WHERE num=#{imageNum}")
 	String downloadImg(int num);
 }

@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FileVO {
+	private String imageNum;
+	private String imageName;
 	private String imageId;
-	private String originImageName;
-	private String newImageName;
 	private String ImagePath;
 }
